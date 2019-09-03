@@ -1,0 +1,80 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:latest
+    container_name: production_nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/cache/:/etc/nginx/cache
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+
+  verged:
+    build: vDocker
+    image: 'marpme/verge-core'
+    volumes:
+      - ./VERGE/:/root/.VERGE
+    ports:
+      - 21102:21102
+      - 20102:20102
+
+  database:
+    image: mongo:3.4-jessie
+    ports:
+      - 27017:27017
+    volumes:
+      - ./bitcore/data/:/data/db
+    restart: always
+
+  bitcore-node:
+    build: bitcore
+    image: bitcore-node
+    links:
+      - database
+    depends_on:
+      - database
+    ports:
+      - 3000:3000
+    environment:
+      - DB_HOST=database
+    env_file: .env
+    restart: always
+    command: npm run node
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/XVG/mainnet/block/tip"]
+      interval: 1m
+      timeout: 10s
+      retries: 2
+
+  bitcore-wallet-service:
+    build: bitcore
+    image: bitcore-wallet-service
+    links:
+      - database
+      - bitcore-node
+    depends_on:
+      - database
+    ports:
+      - 3232:3232
+      - 3380:3380
+    environment:
+      - BWS_MONGODB_URI=mongodb://database:27017/bws
+      - BWS_NODE_URL=http://host.docker.internal:3000
+    env_file: .env
+    restart: always
+    command: ./packages/bitcore-wallet-service/docker-cmd.sh
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3232/vws/api/v1/fiatrates/eur"]
+      interval: 1m
+      timeout: 10s
+      retries: 1
+
+  autoheal:
+    restart: always
+    image: willfarrell/autoheal
+    environment:
+      - AUTOHEAL_CONTAINER_LABEL=all
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

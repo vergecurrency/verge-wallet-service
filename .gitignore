@@ -1,0 +1,4 @@
+.env
+/nginx/cache
+/bitcore
+/vDocker
