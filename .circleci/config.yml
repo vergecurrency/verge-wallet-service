@@ -18,6 +18,6 @@ jobs:
           name: Start container and verify it's working
           command: |
             set -x
-            docker-compose up -f docker-compose.api.yml -d
+            docker-compose -f docker-compose.api.yml up -d
 
       - run: curl http://localhost:3232/vws/api/v1/fiatrates/eur
