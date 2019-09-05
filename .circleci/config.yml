@@ -5,7 +5,7 @@ jobs:
       - image: dduportal/docker-compose:latest
     steps:
       - checkout
-      - run: echo "hello world"
+      - run: docker-compose build
 
   test:
     docker:
