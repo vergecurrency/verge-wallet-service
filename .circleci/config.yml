@@ -19,3 +19,9 @@ jobs:
           command: |
             set -x
             docker-compose -f docker-compose.api.yml build
+
+  test:
+    machine: true
+    steps:
+      - run: docker-compose -f docker-compose.api.yml up -d
+      - run: curl http://localhost:3232/vws/api/v1/fiatrates/eur
