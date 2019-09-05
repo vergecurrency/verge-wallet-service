@@ -5,6 +5,7 @@ jobs:
       - image: dduportal/docker-compose:latest
     steps:
       - checkout
+      - run: cp .env.example .env
       - run: docker-compose build
 
   test:
