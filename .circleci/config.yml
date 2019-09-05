@@ -1,7 +1,7 @@
 version: 2.1
 jobs:
-  machine: true
   build:
+    machine: true
     steps:
       - checkout
       - run: cp .env.example .env
