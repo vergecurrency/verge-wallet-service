@@ -1,0 +1,16 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: dduportal/docker-compose:latest
+    steps:
+      - checkout
+      - run: echo "hello world"
+
+  test:
+    docker:
+      - image: dduportal/docker-compose:latest
+    steps:
+      - docker-compose up -d
+      - curl http://localhost:3232/vws/api/v1/fiatrates/eur
+
