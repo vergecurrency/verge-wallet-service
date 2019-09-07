@@ -12,8 +12,7 @@ services:
     restart: always
 
   verged:
-    build: vDocker
-    image: 'marpme/verge-core'
+    image: marpme/verge-core:latest
     volumes:
       - ./VERGE/:/root/.VERGE
     ports:
@@ -25,12 +24,11 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - ./bitcore/data/:/data/db
+      - ./data/:/data/db
     restart: always
 
   bitcore-node:
-    build: bitcore
-    image: bitcore-node
+    image: hdsign/bitcore:latest
     links:
       - database
     depends_on:
@@ -49,8 +47,7 @@ services:
       retries: 2
 
   bitcore-wallet-service:
-    build: bitcore
-    image: bitcore-wallet-service
+    image: hdsign/bitcore:latest
     links:
       - database
       - bitcore-node
