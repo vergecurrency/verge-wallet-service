@@ -12,12 +12,13 @@ services:
     restart: always
 
   verged:
-    image: marpme/verge-core:latest
-    volumes:
-      - ./VERGE/:/root/.VERGE
+    image: hdsign/verge-core:latest
     ports:
       - 21102:21102
       - 20102:20102
+    volumes:
+      - ./VERGE/:/root/.VERGE
+    restart: always
 
   database:
     image: mongo:3.4-jessie
