@@ -1,0 +1,26 @@
+{
+  "bitcoreNode": {
+    "dbHost": "206.189.99.221",
+    "dbPort": "27020",
+    "pruneSpentScripts": true,
+    "chains": {
+      "XVG": {
+        "mainnet": {
+          "chainSource": "p2p",
+          "trustedPeers": [
+            {
+              "host": "127.0.0.1",
+              "port": 21102
+            }
+          ],
+          "rpc": {
+            "host": "127.0.0.1",
+            "port": 20102,
+            "username": "RPCUSER",
+            "password": "RPCPASS"
+          }
+        }
+      }
+    }
+  }
+}
