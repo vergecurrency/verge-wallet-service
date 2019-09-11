@@ -8,4 +8,10 @@ $ ./install.sh
 $ docker-compose up -d
 ```
 
-To be continued.
+TODO:
+
+* price/IP api
+* nginx for price/IP api
+* nginx for db
+* db replicas
+* ci deploy
