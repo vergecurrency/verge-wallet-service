@@ -1,6 +1,6 @@
 {
   "bitcoreNode": {
-    "dbHost": "206.189.99.221",
+    "dbHost": "185.36.132.224", // "206.189.99.221",
     "dbPort": "27020",
     "pruneSpentScripts": true,
     "chains": {
