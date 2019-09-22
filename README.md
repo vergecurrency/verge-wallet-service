@@ -11,7 +11,6 @@ $ docker-compose up -d
 TODO:
 
 * price/IP api
-* nginx for price/IP api
 * nginx for db
 * db replicas
 * ci deploy
