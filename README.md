@@ -5,12 +5,20 @@ This repository contains the automated scripts used to deploy Verge Wallet Servi
 
 ```bash
 $ ./install.sh
+
+$ cd db
+$ docker-compose up -d
+
+$ cd ..
+
+$ cd api
 $ docker-compose up -d
 ```
 
 TODO:
 
 * price/IP api
-* nginx for db
+* nginx for price/IP api
+* nginx IP for db
 * db replicas
 * ci deploy

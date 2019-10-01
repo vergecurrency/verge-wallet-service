@@ -1,6 +1,7 @@
-.env
-/nginx/cache
-/data
+/api/.env
+/api/nginx/cache
+/api/logs
+/api/VERGE
+/db/data
+/db/nginx/cache
 /dump
-/logs
-/VERGE

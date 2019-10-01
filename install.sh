@@ -1,2 +1,2 @@
 # Create an environment file
-cp env.example .env
+cp ./api/env.example ./api/.env

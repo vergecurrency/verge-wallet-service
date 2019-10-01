@@ -1,3 +1,6 @@
 [submodule "verge-price-ticker"]
-	path = verge-price-ticker
+	path = api/verge-price-ticker
 	url = https://github.com/vergecurrency/verge-price-ticker.git
+[submodule "api/verge-price-ticker"]
+	path = api/verge-price-ticker
+	url = git@github.com:vergecurrency/verge-price-ticker.git
