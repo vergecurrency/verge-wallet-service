@@ -15,13 +15,15 @@ jobs:
             sudo mv ~/docker-compose /usr/local/bin/docker-compose
 
       - run:
-          name: Start container and verify it's working
+          name: Start container api and verify it's working
           command: |
             set -x
-            docker-compose -f docker-compose.api.yml build
+            cd api
+            docker-compose build
 
   test:
     machine: true
     steps:
-      - run: docker-compose -f docker-compose.api.yml up -d
+      - run: cd api
+      - run: docker-compose up -d
       - run: curl http://localhost:3232/vws/api/v1/fiatrates/eur
