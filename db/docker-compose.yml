@@ -7,14 +7,16 @@ services:
       - ./nginx/cache/:/etc/nginx/cache
       - ./nginx/html/:/usr/share/nginx/html
     ports:
-      - 80:80
-      - 27020:27020
+      - "80:80"
+      - "27020:27020"
+    depends_on:
+      - database
     restart: always
 
   database:
     image: mongo:3.4-jessie
-    ports:
-      - 27017:27017
+    expose:
+      - "27017"
     volumes:
       - ./data/:/data/db
       - ./dump/:/dump

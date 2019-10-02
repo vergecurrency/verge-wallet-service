@@ -6,15 +6,19 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/cache/:/etc/nginx/cache
     ports:
-      - 80:80
-      - 443:443
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - bitcore-node
+      - bitcore-wallet-service
+      - verge-price-ticker
     restart: always
 
   verged:
     image: hdsign/verge-core:latest
     ports:
-      - 21102:21102
-      - 20102:20102
+      - "21102:21102"
+      - "20102:20102"
     volumes:
       - ./VERGE/:/root/.VERGE
     restart: always
@@ -22,9 +26,13 @@ services:
   bitcore-node:
     image: hdsign/bitcore:latest
     ports:
-      - 3000:3000
+      - "3000:3000"
     environment:
       - DB_HOST=${BN_MONGODB_HOST}
+      - DB_NAME=${BN_MONGODB_NAME}
+      - DB_PORT=${BN_MONGODB_PORT}
+    depends_on:
+      - verged
     restart: always
     command: npm run node
     healthcheck:
@@ -38,11 +46,13 @@ services:
     links:
       - bitcore-node
     ports:
-      - 3232:3232
-      - 3380:3380
+      - "3232:3232"
+      - "3380:3380"
     environment:
-      - BWS_MONGODB_URI=${BWS_MONGODB_URI}
+      - BWS_MONGODB_URL=${BWS_MONGODB_URL}
       - BWS_NODE_URL=${BWS_NODE_URL}
+    depends_on:
+      - bitcore-node
     volumes:
       - ./logs/vws/:/usr/src/app/packages/bitcore-wallet-service/logs
     restart: always
@@ -56,9 +66,9 @@ services:
   verge-price-ticker:
     image: hdsign/verge-price-ticker:latest
     ports:
-      - 3003:3003
+      - "3003:3003"
     environment:
-      - VPT_MONGODB_URI=${VPT_MONGODB_URI}
+      - VPT_MONGODB_URL=${VPT_MONGODB_URL}
     restart: always
     command: npm run prod
     healthcheck:
