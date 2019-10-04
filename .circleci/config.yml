@@ -53,8 +53,8 @@ jobs:
       - run:
           name: Start docker-compose
           command: |
-            ssh $XVGAPI01 'cd /home/$REMOTE_USER && docker-compose down'
-            ssh $XVGAPI01 'cd /home/$REMOTE_USER && docker-compose up -d'
+            ssh $XVGAPI01 'cd ~ && docker-compose down'
+            ssh $XVGAPI01 'cd ~ && docker-compose up -d'
 
 workflows:
   version: 2
