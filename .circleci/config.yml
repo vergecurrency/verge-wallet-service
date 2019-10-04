@@ -25,12 +25,14 @@ jobs:
             - db/*
 
   test:
+    machine: true
     steps:
       - run: cd api
       - run: docker-compose up -d
       - run: curl http://localhost:3232/vws/api/v1/fiatrates/eur
 
   deploy-db:
+    machine: true
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -55,8 +57,8 @@ workflows:
             - build
       - deploy-db:
           requires:
-            - build
+            - test
       - deploy-api:
           requires:
-            - build
+            - test
 
