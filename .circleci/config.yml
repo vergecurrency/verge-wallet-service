@@ -30,7 +30,7 @@ jobs:
     steps:
       - checkout
       - run: cd api && docker-compose up -d
-      - run: curl http://localhost:3232/vws/api/v1/fiatrates/eur
+#      - run: curl http://localhost:3232/vws/api/v1/fiatrates/eur
 
   deploy-db:
     machine: true
