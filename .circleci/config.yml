@@ -46,15 +46,15 @@ jobs:
       - run:
           name: Copy API files
           command: |
-            scp ./api/docker-compose.yml $XVGAPI01:/home/
-            scp ./api/nginx.conf $XVGAPI01:/home/
-            scp ./api/bitcore.config.json $XVGAPI01:/home/
+            scp ./api/docker-compose.yml $XVGAPI01:/home/$REMOTE_USER
+            scp ./api/nginx.conf $XVGAPI01:/home/$REMOTE_USER
+            scp ./api/bitcore.config.json $XVGAPI01:/home/$REMOTE_USER
 
       - run:
           name: Start docker-compose
           command: |
-            ssh $XVGAPI01 'docker-compose down'
-            ssh $XVGAPI01 'docker-compose up -d'
+            ssh $XVGAPI01 'cd /home/$REMOTE_USER && docker-compose down'
+            ssh $XVGAPI01 'cd /home/$REMOTE_USER && docker-compose up -d'
 
 workflows:
   version: 2
