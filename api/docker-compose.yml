@@ -11,7 +11,7 @@ services:
     depends_on:
       - bitcore-node
       - bitcore-wallet-service
-      - verge-price-ticker
+#      - verge-price-ticker
     restart: always
 
   verged:
