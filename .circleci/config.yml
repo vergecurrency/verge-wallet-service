@@ -28,6 +28,7 @@ jobs:
   test:
     machine: true
     steps:
+      - checkout
       - run: cd api
       - run: docker-compose up -d
       - run: curl http://localhost:3232/vws/api/v1/fiatrates/eur
@@ -35,6 +36,7 @@ jobs:
   deploy-db:
     machine: true
     steps:
+      - checkout
       - add_ssh_keys:
           fingerprints:
             - "a9:8f:77:d2:f2:e2:3d:ef:62:4f:08:49:c2:6f:96:f3"
@@ -43,6 +45,7 @@ jobs:
   deploy-api:
     machine: true
     steps:
+      - checkout
       - add_ssh_keys:
           fingerprints:
             - "ae:76:6a:4e:cf:73:48:39:ab:5f:d5:31:96:8b:50:f5"
