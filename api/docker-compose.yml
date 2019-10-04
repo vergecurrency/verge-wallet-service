@@ -25,8 +25,8 @@ services:
 
   bitcore-node:
     image: hdsign/bitcore:latest
-    ports:
-      - "3000:3000"
+    expose:
+      - "3000"
     environment:
       - DB_HOST=${BN_MONGODB_HOST}
       - DB_NAME=${BN_MONGODB_NAME}
@@ -47,9 +47,9 @@ services:
     image: hdsign/bitcore:latest
     links:
       - bitcore-node
-    ports:
-      - "3232:3232"
-      - "3380:3380"
+    expose:
+      - "3232"
+      - "3380"
     environment:
       - BWS_MONGODB_URL=${BWS_MONGODB_URL}
       - BWS_NODE_URL=${BWS_NODE_URL}
@@ -67,8 +67,8 @@ services:
 
   verge-price-ticker:
     image: hdsign/verge-price-ticker:latest
-    ports:
-      - "3003:3003"
+    expose:
+      - "3003"
     environment:
       - VPT_MONGODB_URL=${VPT_MONGODB_URL}
     restart: always

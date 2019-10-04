@@ -1,45 +1,40 @@
 version: 2
 jobs:
-  build:
-    machine: true
-    steps:
-      - checkout
-
-      - run:
-          name: Install Docker Compose
-          command: |
-            curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
-            chmod +x ~/docker-compose
-            sudo mv ~/docker-compose /usr/local/bin/docker-compose
-
-      - run:
-          name: Start container api and verify it's working
-          command: |
-            set -x
-            cd api
-            docker-compose build
-
-      - persist_to_workspace:
-          root: .
-          paths:
-            - api/*
-            - db/*
-
-  test:
-    machine: true
-    steps:
-      - checkout
-      - run: cd api && docker-compose up -d
+#  build:
+#    machine: true
+#    steps:
+#      - checkout
+#
+#      - run:
+#          name: Install Docker Compose
+#          command: |
+#            curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+#            chmod +x ~/docker-compose
+#            sudo mv ~/docker-compose /usr/local/bin/docker-compose
+#
+#      - run:
+#          name: Start container api and verify it's working
+#          command: |
+#            set -x
+#            cd api
+#            docker-compose pull
+#            docker-compose build
+#
+#  test:
+#    machine: true
+#    steps:
+#      - checkout
+#      - run: cd api && docker-compose up -d
 #      - run: curl http://localhost:3232/vws/api/v1/fiatrates/eur
 
-  deploy-db:
-    machine: true
-    steps:
-      - checkout
-      - add_ssh_keys:
-          fingerprints:
-            - "a9:8f:77:d2:f2:e2:3d:ef:62:4f:08:49:c2:6f:96:f3"
-      - run: scp ./db/nginx.conf $VWS1:/home/vegadmin/test
+#  deploy-db:
+#    machine: true
+#    steps:
+#      - checkout
+#      - add_ssh_keys:
+#          fingerprints:
+#            - "a9:8f:77:d2:f2:e2:3d:ef:62:4f:08:49:c2:6f:96:f3"
+#      - run: scp ./db/nginx.conf $VWS1:/home/vegadmin/test
 
   deploy-api:
     machine: true
@@ -48,20 +43,31 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "ae:76:6a:4e:cf:73:48:39:ab:5f:d5:31:96:8b:50:f5"
-      - run: scp ./api/nginx.conf $VWS1:/home/vegadmin/test
+      - run:
+          name: Copy API files
+          command: |
+            scp ./api/docker-compose.yml $XVGAPI01:/home/
+            scp ./api/nginx.conf $XVGAPI01:/home/
+            scp ./api/bitcore.config.json $XVGAPI01:/home/
+
+      - run:
+          name: Start docker-compose
+          command: |
+            ssh $XVGAPI01 'docker-compose down'
+            ssh $XVGAPI01 'docker-compose up -d'
 
 workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - build
-      - test:
-          requires:
-            - build
-      - deploy-db:
-          requires:
-            - test
-      - deploy-api:
-          requires:
-            - test
+#      - build
+#      - test:
+#          requires:
+#            - build
+#      - deploy-db:
+#          requires:
+#            - test
+      - deploy-api
+#          requires:
+#            - test
 
