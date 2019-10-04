@@ -65,19 +65,19 @@ services:
       timeout: 10s
       retries: 1
 
-  verge-price-ticker:
-    image: hdsign/verge-price-ticker:latest
-    expose:
-      - "3003"
-    environment:
-      - VPT_MONGODB_URL=${VPT_MONGODB_URL}
-    restart: always
-    command: npm run prod
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3003/api/v1/price/usd"]
-      interval: 1m
-      timeout: 10s
-      retries: 1
+#  verge-price-ticker:
+#    image: hdsign/verge-price-ticker:latest
+#    expose:
+#      - "3003"
+#    environment:
+#      - VPT_MONGODB_URL=${VPT_MONGODB_URL}
+#    restart: always
+#    command: npm run prod
+#    healthcheck:
+#      test: ["CMD", "curl", "-f", "http://localhost:3003/api/v1/price/usd"]
+#      interval: 1m
+#      timeout: 10s
+#      retries: 1
 
   autoheal:
     restart: always
