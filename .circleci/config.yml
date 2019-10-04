@@ -4,8 +4,6 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run: git submodule update --init --recursive
-      - run: cp api/.env.example api/.env
 
       - run:
           name: Install Docker Compose
@@ -21,15 +19,18 @@ jobs:
             cd api
             docker-compose build
 
+      - persist_to_workspace:
+          paths:
+            - api/*
+            - db/*
+
   test:
-    machine: true
     steps:
       - run: cd api
       - run: docker-compose up -d
       - run: curl http://localhost:3232/vws/api/v1/fiatrates/eur
 
   deploy-db:
-    machine: true
     steps:
       - add_ssh_keys:
           fingerprints:
