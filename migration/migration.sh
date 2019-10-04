@@ -13,6 +13,12 @@
   # * Turn on bitcore-node
   # * Turn on bitcore-wallet-service
 
+# Api server
+VWS1=root@188.166.15.111.0
+XVGAPI01=vegadmin@185.36.132.223
+# DB server
+VWS2=root@206.189.99.221.0
+XVGDB01=vegadmin@185.36.132.224
 
 DOCKERDB=verge-wallet-service_database_1
 
