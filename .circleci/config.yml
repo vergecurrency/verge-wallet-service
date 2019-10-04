@@ -1,4 +1,4 @@
-version: 2.1
+version: 2
 jobs:
   build:
     machine: true
@@ -20,12 +20,14 @@ jobs:
             set -x
             cd api
             docker-compose build
+
   test:
     machine: true
     steps:
       - run: cd api
       - run: docker-compose up -d
       - run: curl http://localhost:3232/vws/api/v1/fiatrates/eur
+
   deploy-db:
     machine: true
     steps:
@@ -33,6 +35,7 @@ jobs:
           fingerprints:
             - "a9:8f:77:d2:f2:e2:3d:ef:62:4f:08:49:c2:6f:96:f3"
       - run: scp ./db/nginx.conf $VWS1:/home/vegadmin/test
+
   deploy-api:
     machine: true
     steps:
@@ -40,23 +43,12 @@ jobs:
           fingerprints:
             - "ae:76:6a:4e:cf:73:48:39:ab:5f:d5:31:96:8b:50:f5"
       - run: scp ./api/nginx.conf $VWS1:/home/vegadmin/test
+
 workflows:
   version: 2
-  workflow:
+  build-and-deploy:
     jobs:
       - build
       - test
-      - deploy-db:
-          requires:
-            - build
-            - test
-          filters:
-            branches:
-              only: master
-      - deploy-api:
-          requires:
-            - build
-            - test
-          filters:
-            branches:
-              only: master
+      - deploy-db
+      - deploy-api
