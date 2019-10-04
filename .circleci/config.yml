@@ -50,6 +50,13 @@ workflows:
   build-and-deploy:
     jobs:
       - build
-      - test
-      - deploy-db
-      - deploy-api
+      - test:
+          requires:
+            - build
+      - deploy-db:
+          requires:
+            - build
+      - deploy-api:
+          requires:
+            - build
+
