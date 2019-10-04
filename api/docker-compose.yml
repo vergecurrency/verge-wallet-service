@@ -33,6 +33,8 @@ services:
       - DB_PORT=${BN_MONGODB_PORT}
     depends_on:
       - verged
+    volumes:
+      - ./bitcore.config.json:/usr/src/app/bitcore.config.json
     restart: always
     command: npm run node
     healthcheck:
