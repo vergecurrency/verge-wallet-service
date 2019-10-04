@@ -26,14 +26,14 @@ jobs:
       - run: cd api
       - run: docker-compose up -d
       - run: curl http://localhost:3232/vws/api/v1/fiatrates/eur
-  deploy:
+  deploy-db:
     machine: true
     steps:
       - add_ssh_keys:
           fingerprints:
             - "a9:8f:77:d2:f2:e2:3d:ef:62:4f:08:49:c2:6f:96:f3"
       - run: scp ./db/nginx.conf $VWS1:/home/vegadmin/test
-  deploy:
+  deploy-api:
     machine: true
     steps:
       - add_ssh_keys:
@@ -46,7 +46,14 @@ workflows:
     jobs:
       - build
       - test
-      - deploy:
+      - deploy-db:
+          requires:
+            - build
+            - test
+          filters:
+            branches:
+              only: master
+      - deploy-api:
           requires:
             - build
             - test
