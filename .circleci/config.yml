@@ -35,7 +35,7 @@ jobs:
           command: |
             scp ./api/docker-compose.yml $XVGAPI01:/home/$REMOTE_USER
             scp ./api/nginx.conf $XVGAPI01:/home/$REMOTE_USER
-            scp ./db/nginx/html/index.html $XVGAPI01:/home/$REMOTE_USER/nginx/html
+            scp ./api/nginx/html/index.html $XVGAPI01:/home/$REMOTE_USER/nginx/html
             scp ./api/bitcore.config.json $XVGAPI01:/home/$REMOTE_USER
 
       - run:
