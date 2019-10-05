@@ -21,7 +21,7 @@ var config = {
 
   storageOpts: {
     mongoDb: {
-      uri: 'mongodb://185.36.132.224:27020/bws', // 'mongodb://206.189.99.221:27020/bws'
+      uri: 'mongodb://db.vergecurrency.network:27020/bws', // 'mongodb://206.189.99.221:27020/bws'
     },
   },
   messageBrokerOpts: {

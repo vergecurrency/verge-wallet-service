@@ -7,8 +7,10 @@ services:
       - ./nginx/whitelist.conf:/etc/nginx/shared-configs/whitelist.conf
       - ./nginx/cache/:/etc/nginx/cache
       - ./nginx/html/:/usr/share/nginx/html
+      - /etc/letsencrypt/:/etc/letsencrypt/
     ports:
       - "80:80"
+      - "443:443"
       - "27020:27020"
     depends_on:
       - database

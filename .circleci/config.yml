@@ -14,7 +14,7 @@ jobs:
             scp ./db/docker-compose.yml $XVGDB01:/home/$REMOTE_USER
             scp ./db/nginx.conf $XVGDB01:/home/$REMOTE_USER
             scp ./db/nginx/whitelist.conf $XVGDB01:/home/$REMOTE_USER/nginx
-            scp ./db/nginx/html/index.html $XVGDB01:/home/$REMOTE_USER/nginx
+            scp ./db/nginx/html/index.html $XVGDB01:/home/$REMOTE_USER/nginx/html
 
       - run:
           name: Start docker-compose
@@ -35,6 +35,7 @@ jobs:
           command: |
             scp ./api/docker-compose.yml $XVGAPI01:/home/$REMOTE_USER
             scp ./api/nginx.conf $XVGAPI01:/home/$REMOTE_USER
+            scp ./db/nginx/html/index.html $XVGAPI01:/home/$REMOTE_USER/nginx/html
             scp ./api/bitcore.config.json $XVGAPI01:/home/$REMOTE_USER
 
       - run:
