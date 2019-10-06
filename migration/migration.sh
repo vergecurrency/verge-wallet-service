@@ -31,6 +31,8 @@ ssh $VWS1 'systemctl stop prices.service'
 
 # 3: Dump `bws` database on vws2
 ssh $VWS2 'mongodump -d bws'
+ssh $VWS2 'mongodump -d bitcore -c wallets'
+ssh $VWS2 'mongodump -d bitcore -c walletaddresses'
 
 # 4: Zip dumped database
 ssh $VWS2 'tar -zcvf dump.tar.gz dump'
@@ -41,7 +43,10 @@ scp ./dump.tar.gz $XVGDB01:/home/vegadmin # to new server
 ssh $XVGDB01 'tar -xzvf dump.tar.gz' # unzip
 
 # 6: Restore `bws` database on xvg-db-01
-ssh $XVGDB01 "docker exec ${DOCKERDB} sh -c 'exec mongorestore --nsInclude \"bws.*\" dump/'"
+ssh $XVGDB01 "docker cp dump/. ${DOCKERDB}:/dump"
+ssh $XVGDB01 "docker exec ${DOCKERDB} sh -c 'exec mongorestore --nsInclude \"bws.*\"'"
+ssh $XVGDB01 "docker exec ${DOCKERDB} sh -c 'exec mongorestore --nsInclude \"bitcore.wallets\"'"
+ssh $XVGDB01 "docker exec ${DOCKERDB} sh -c 'exec mongorestore --nsInclude \"bitcore.walletaddresses\"'"
 
 # 7: Turn on nodes.
 # We turn on bitcore-node, bitcore-wallet-service and the price services on vws1.
