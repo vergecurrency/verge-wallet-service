@@ -1,6 +1,18 @@
 {
   "bitcoreNode": {
     "pruneSpentScripts": true,
+    "services": {
+      "api": {
+        "rateLimiter": {
+          "disabled": false,
+          "whitelist": [
+            "::ffff:127.0.0.1",
+            "::1",
+            "::ffff:192.168"
+          ]
+        }
+      }
+    },
     "chains": {
       "XVG": {
         "mainnet": {
@@ -17,18 +29,6 @@
             "username": "RPCUSER",
             "password": "RPCPASS"
           }
-        }
-      }
-    },
-    "services": {
-      "api": {
-        "rateLimiter": {
-          "disabled": false,
-          "whitelist": [
-            "::ffff:127.0.0.1",
-            "::1",
-            "::ffff:192.168.128"
-          ]
         }
       }
     }
