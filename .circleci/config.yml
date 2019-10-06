@@ -11,7 +11,7 @@ jobs:
       - run:
           name: Copy DB files
           command: |
-            scp ./install.sh $XVGAPI01:/home/$REMOTE_USER
+            scp ./install.sh $XVGDB01:/home/$REMOTE_USER
             scp ./db/docker-compose.yml $XVGDB01:/home/$REMOTE_USER
             scp ./db/nginx.conf $XVGDB01:/home/$REMOTE_USER
             scp ./db/nginx/whitelist.conf $XVGDB01:/home/$REMOTE_USER/nginx
