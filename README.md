@@ -4,8 +4,6 @@ This repository contains the automated scripts used to deploy Verge Wallet Servi
 ## Development
 
 ```bash
-$ ./install.sh
-
 $ cd db
 $ docker-compose up -d
 
@@ -15,10 +13,6 @@ $ cd api
 $ docker-compose up -d
 ```
 
-TODO:
+## Production
 
-* price/IP api
-* nginx for price/IP api
-* nginx IP for db
-* db replicas
-* ci deploy
+See [circle CI configuration](blob/master/.circleci/config.yml)

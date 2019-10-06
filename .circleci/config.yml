@@ -11,6 +11,7 @@ jobs:
       - run:
           name: Copy DB files
           command: |
+            scp ./install.sh $XVGAPI01:/home/$REMOTE_USER
             scp ./db/docker-compose.yml $XVGDB01:/home/$REMOTE_USER
             scp ./db/nginx.conf $XVGDB01:/home/$REMOTE_USER
             scp ./db/nginx/whitelist.conf $XVGDB01:/home/$REMOTE_USER/nginx
@@ -19,6 +20,8 @@ jobs:
       - run:
           name: Start docker-compose
           command: |
+            ssh $XVGDB01 'cd ~ && sh install.sh'
+            ssh $XVGDB01 'cd ~ && docker-compose pull'
             ssh $XVGDB01 'cd ~ && docker-compose down'
             ssh $XVGDB01 'cd ~ && docker-compose up -d'
 
@@ -33,6 +36,7 @@ jobs:
       - run:
           name: Copy API files
           command: |
+            scp ./install.sh $XVGAPI01:/home/$REMOTE_USER
             scp ./api/docker-compose.yml $XVGAPI01:/home/$REMOTE_USER
             scp ./api/nginx.conf $XVGAPI01:/home/$REMOTE_USER
             scp ./api/nginx/html/index.html $XVGAPI01:/home/$REMOTE_USER/nginx/html
@@ -41,6 +45,8 @@ jobs:
       - run:
           name: Start docker-compose
           command: |
+            ssh $XVGAPI01 'cd ~ && sh install.sh'
+            ssh $XVGAPI01 'cd ~ && docker-compose pull'
             ssh $XVGAPI01 'cd ~ && docker-compose down'
             ssh $XVGAPI01 'cd ~ && docker-compose up -d'
 
