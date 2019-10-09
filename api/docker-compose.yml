@@ -6,8 +6,6 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/cache/:/etc/nginx/cache
       - ./nginx/html/:/usr/share/nginx/html
-      - ./logs/nginx/access_log.log:/etc/nginx/access_log.log
-      - ./logs/nginx/error_log.log:/etc/nginx/error_log.log
       - /etc/letsencrypt/:/etc/letsencrypt/
     ports:
       - "80:80"
