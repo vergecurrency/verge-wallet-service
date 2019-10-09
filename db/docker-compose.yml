@@ -17,7 +17,10 @@ services:
     restart: always
 
   database:
+    hostname: database
+    container_name: database
     image: mongo:3.4-jessie
+    command: --replSet vws
     expose:
       - "27017"
     volumes:
