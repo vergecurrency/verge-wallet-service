@@ -11,13 +11,13 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - "27020:27020"
+      - "27017:27017"
     depends_on:
       - database
     restart: always
 
   database:
-    hostname: database
+    hostname: database01
     container_name: database
     image: mongo:3.4-jessie
     command: --replSet vws
