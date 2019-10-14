@@ -26,4 +26,7 @@ services:
     volumes:
       - ./data/:/data/db
       - ./dump/:/dump
+    extra_hosts:
+      - "database02:72.250.172.199"
+      - "database03:72.250.172.200"
     restart: always
