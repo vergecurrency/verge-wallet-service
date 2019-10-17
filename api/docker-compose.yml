@@ -17,7 +17,7 @@ services:
     restart: always
 
   verged:
-    image: hdsign/verge-core:latest
+    image: hdsign/verge-core:6
     ports:
       - "21102:21102"
       - "20102:20102"
