@@ -23,6 +23,7 @@ services:
       - "20102:20102"
     volumes:
       - ./VERGE/:/root/.VERGE
+    command: ./verged --server=1 --listen=1 -rpcuser=RPCUSER -rpcpassword=RPCPASS -rpcallowip=bitcore-node
     restart: always
 
   bitcore-node:
