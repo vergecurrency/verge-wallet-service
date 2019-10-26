@@ -1,4 +1,11 @@
 version: '3'
+networks:
+  default:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.30.0.0/16
+        - gateway: 172.30.0.1
 services:
   nginx:
     image: nginx:latest
@@ -36,8 +43,6 @@ services:
       - DB_PORT=${BN_MONGODB_PORT}
     depends_on:
       - verged
-    links:
-      - bitcore-wallet-service
     volumes:
       - ./bitcore.config.json:/usr/src/app/bitcore.config.json
     restart: always
