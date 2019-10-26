@@ -8,7 +8,7 @@
           "whitelist": [
             "::ffff:127.0.0.1",
             "::1",
-            "::ffff:192.168"
+            "bitcore-wallet-service"
           ]
         }
       }

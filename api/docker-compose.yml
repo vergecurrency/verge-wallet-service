@@ -36,6 +36,8 @@ services:
       - DB_PORT=${BN_MONGODB_PORT}
     depends_on:
       - verged
+    links:
+      - bitcore-wallet-service
     volumes:
       - ./bitcore.config.json:/usr/src/app/bitcore.config.json
     restart: always
