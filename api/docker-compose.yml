@@ -23,7 +23,7 @@ services:
     restart: always
 
   verged:
-    image: vergecore/verge-core:6
+    image: vergecore/verge-core:6.0.2
     ports:
       - "21102:21102"
       - "20102:20102"
@@ -66,6 +66,7 @@ services:
       - bitcore-node
     volumes:
       - ./logs/vws/:/usr/src/app/packages/bitcore-wallet-service/logs
+      - ./overrides/bitcore-wallet-service/lib/common/defaults.js:/usr/src/app/packages/bitcore-wallet-service/lib/common/defaults.js
     restart: always
     command: /usr/src/app/packages/bitcore-wallet-service/docker-cmd.sh
     healthcheck:
