@@ -22,6 +22,11 @@ services:
       - verge-price-ticker
     restart: always
 
+  tor:
+    image: dperson/torproxy:latest
+    ports:
+      - 9050:9050
+
   verged:
     image: vergecore/verge-core:6.0.2
     ports:
@@ -81,6 +86,11 @@ services:
       - "3003"
     environment:
       - VPT_MONGODB_URL=${VPT_MONGODB_URL}
+      - CRYPTO_COMPARE_API_KEY=${CRYPTO_COMPARE_API_KEY}
+      - TOR_HOST=tor
+      - TOR_PORT=9050
+    depends_on:
+      - tor
     restart: always
     command: yarn run prod
     healthcheck:
