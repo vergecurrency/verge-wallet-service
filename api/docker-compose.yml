@@ -23,7 +23,7 @@ services:
     restart: always
 
   tor:
-    image: SimonHaas/torproxy:latest
+    image: ghcr.io/simonhaas/torproxy/torproxy:latest
     ports:
       - 9050:9050
 
